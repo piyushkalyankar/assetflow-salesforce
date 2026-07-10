@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>AccountAcctivation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AccountAcctivation</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>Asset_Allocated</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Asset Allocated</shortDescription>
+        <value>Asset Allocated</value>
+    </labels>
+    <labels>
+        <fullName>Asset_Already_Allocated</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Asset Already Allocated</shortDescription>
+        <value>This asset is already allocated to another employee.</value>
+    </labels>
+    <labels>
+        <fullName>Asset_Not_Available</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Asset Not Available</shortDescription>
+        <value>The selected asset is currently unavailable. Please contact the Asset Management Team.</value>
+    </labels>
+    <labels>
+        <fullName>Asset_Not_Found</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Asset Not Found</shortDescription>
+        <value>The requested asset could not be found.</value>
+    </labels>
+    <labels>
+        <fullName>Asset_Returned</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Asset Returned</shortDescription>
+        <value>The asset has been returned successfully.</value>
+    </labels>
+    <labels>
+        <fullName>Duplicate_Request</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Duplicate Request</shortDescription>
+        <value>A pending request already exists for the selected asset.</value>
+    </labels>
+    <labels>
+        <fullName>Employee_Inactive</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Employee Inactive</shortDescription>
+        <value>Inactive employees are not allowed to request company assets.</value>
+    </labels>
+    <labels>
+        <fullName>Inventory_API_Failed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Inventory API Failed</shortDescription>
+        <value>Unable to connect to the Inventory Service. Please try again later.</value>
+    </labels>
+    <labels>
+        <fullName>Maintenance_Due</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Maintenance Due</shortDescription>
+        <value>This asset is due for maintenance.</value>
+    </labels>
+    <labels>
+        <fullName>Manager_Not_Assigned</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Manager Not Assigned</shortDescription>
+        <value>Please contact your administrator to assign a manager before requesting an asset.</value>
+    </labels>
+    <labels>
+        <fullName>Request_Approved</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Request Approved</shortDescription>
+        <value>The asset request has been approved successfully.</value>
+    </labels>
+    <labels>
+        <fullName>Request_Rejected</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Request Rejected</shortDescription>
+        <value>The asset request has been rejected.</value>
+    </labels>
+    <labels>
+        <fullName>Request_Submitted</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Request Submitted</shortDescription>
+        <value>Request Submitted</value>
+    </labels>
+    <labels>
+        <fullName>Retry_Later</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Retry Later</shortDescription>
+        <value>Please try again after some time.</value>
+    </labels>
+    <labels>
+        <fullName>Welcome_Message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Welcome Message</shortDescription>
+        <value>Have a great day</value>
+    </labels>
+</CustomLabels>
