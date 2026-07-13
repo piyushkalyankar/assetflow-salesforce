@@ -14,7 +14,7 @@ public with sharing class AssetSelector {
     }
 
     public static Boolean hasPendingRequest(Id employeeId, Id assetId){
-        List<Asset_Request__c> pendingRequests = [SELECT Id FROM Asset_Request__c WHERE Employee__c = :employeeId AND Asset__c = :assetId AND Status__c = 'Pending'];
+        List<Asset_Request__c> pendingRequests = [SELECT Id FROM Asset_Request__c WHERE Employee__c = :employeeId AND Asset__c = :assetId AND Status__c = :AssetConstants.REQUEST_STATUS_PENDING];
         return !pendingRequests.isEmpty();
     }
 }

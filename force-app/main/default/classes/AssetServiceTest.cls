@@ -22,7 +22,7 @@ public with sharing class AssetServiceTest {
         Test.stopTest();
         Asset_Request__c assetRequest = [SELECT Id, Employee__c, Asset__c, Priority__c, Reason__c, Status__c FROM Asset_Request__c WHERE Id = :requestId LIMIT 1];
         System.assertNotEquals(null, requestId, 'Request ID should not be null');
-        System.assertEquals('Pending', assetRequest.Status__c, 'Asset request status should be Pending');
+        System.assertEquals(AssetConstants.REQUEST_STATUS_PENDING, assetRequest.Status__c, 'Asset request status should be Pending');
         System.assertEquals(requestWrapper.employeeId, assetRequest.Employee__c, 'Employee ID should match');
         System.assertEquals(requestWrapper.assetId, assetRequest.Asset__c, 'Asset ID should match');
     }
@@ -30,7 +30,7 @@ public with sharing class AssetServiceTest {
     @isTest
     static void testInactiveEmployeeRequest(){
         Employee__c manager = TestDataFactory.createManager();
-        Employee__c inactiveEmployee = TestDataFactory.createEmployee('Inactive', manager.Id);
+        Employee__c inactiveEmployee = TestDataFactory.createEmployee(AssetConstants.EMPLOYEE_STATUS_INACTIVE, manager.Id);
         Asset__c asset = [SELECT Id FROM Asset__c WHERE Name = 'Test Asset' LIMIT 1];
 
         AssetRequestWrapper requestWrapper = new AssetRequestWrapper(inactiveEmployee.Id, asset.Id, 'High', 'Test Reason');
@@ -65,7 +65,7 @@ public with sharing class AssetServiceTest {
     static void testAssetNotAvailableRequest(){
         Employee__c employee = [SELECT Id FROM Employee__c WHERE Name = 'Test Employee' LIMIT 1];
         Asset__c unavailableAsset = TestDataFactory.createAsset();
-        unavailableAsset.Status__c = 'Assigned';
+        unavailableAsset.Status__c = AssetConstants.ASSET_STATUS_ASSIGNED;
         update unavailableAsset;
 
         AssetRequestWrapper requestWrapper = new AssetRequestWrapper(employee.Id, unavailableAsset.Id, 'High', 'Test Reason');

@@ -29,7 +29,7 @@ public with sharing class AssetService {
             throw new AuraHandledException(System.label.Employee_Not_Found);
         }
 
-        if(employee.Status__c == 'Inactive'){
+        if(employee.Status__c == AssetConstants.EMPLOYEE_STATUS_INACTIVE){
             throw new AuraHandledException(System.label.Employee_Inactive);
         }
 
@@ -46,7 +46,7 @@ public with sharing class AssetService {
             throw new AuraHandledException(System.label.Asset_Not_Found);
         }
 
-        if(asset.Status__c != 'Available'){
+        if(asset.Status__c != AssetConstants.ASSET_STATUS_AVAILABLE){
             throw new AuraHandledException(System.label.Asset_Not_Available);
         }
 
@@ -65,7 +65,7 @@ public with sharing class AssetService {
         assetRequest.Asset__c = assetRequestWrapper.assetId;
         assetRequest.Priority__c = assetRequestWrapper.priority;
         assetRequest.Reason__c = assetRequestWrapper.reason;
-        assetRequest.Status__c = 'Pending';
+        assetRequest.Status__c = AssetConstants.REQUEST_STATUS_PENDING;
         assetRequest.Request_Date__c = System.today();
         return assetRequest;
     }
