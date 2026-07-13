@@ -36,6 +36,13 @@
         <value>The requested asset could not be found.</value>
     </labels>
     <labels>
+        <fullName>Employee_Not_Found</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Employee Not Found</shortDescription>
+        <value>The employee could not be found.</value>
+    </labels>
+    <labels>
         <fullName>Asset_Returned</fullName>
         <language>en_US</language>
         <protected>false</protected>
