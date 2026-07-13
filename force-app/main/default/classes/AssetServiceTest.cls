@@ -60,4 +60,42 @@ public with sharing class AssetServiceTest {
             System.assertNotEquals(null, e.getMessage(), 'Expected Manager Not Assigned exception');
         }
     }
+
+    @isTest
+    static void testAssetNotAvailableRequest(){
+        Employee__c employee = [SELECT Id FROM Employee__c WHERE Name = 'Test Employee' LIMIT 1];
+        Asset__c unavailableAsset = TestDataFactory.createAsset();
+        unavailableAsset.Status__c = 'Assigned';
+        update unavailableAsset;
+
+        AssetRequestWrapper requestWrapper = new AssetRequestWrapper(employee.Id, unavailableAsset.Id, 'High', 'Test Reason');
+
+        Test.startTest();
+        try {
+            AssetService.requestAsset(requestWrapper);
+            System.assert(false, 'Expected an exception for unavailable asset');
+        } catch (AuraHandledException e) {
+            System.assertNotEquals(null, e.getMessage(), 'Expected Asset Not Available exception');
+        }
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testDuplicateRequest(){
+        Employee__c employee = [SELECT Id FROM Employee__c WHERE Name = 'Test Employee' LIMIT 1];
+        Asset__c asset = [SELECT Id FROM Asset__c WHERE Name = 'Test Asset' LIMIT 1];
+
+        TestDataFactory.createAssetRequest(employee.Id, asset.Id);
+
+        AssetRequestWrapper requestWrapper = new AssetRequestWrapper(employee.Id, asset.Id, 'High', 'Test Reason');
+
+        Test.startTest();
+        try {
+            AssetService.requestAsset(requestWrapper);
+            System.assert(false, 'Expected an exception for duplicate request');
+        } catch (AuraHandledException e) {
+            System.assertNotEquals(null, e.getMessage(), 'Expected Duplicate Request exception');
+        }
+        Test.stopTest();
+    }
 }
