@@ -1,3 +1,89 @@
 <template>
-    
+    <lightning-card title="Asset Request" icon-name="standard:asset_object">
+        <div class="slds-p-around_medium">
+            <lightning-layout multiple-rows>
+
+                <!-- Employee -->
+                <lightning-layout-item
+                    size="12"
+                    medium-device-size="6"
+                    class="slds-p-right_x-small">
+
+                    <lightning-combobox
+                        name="employeeId"
+                        label="Employee"
+                        value={assetRequest.employeeId}
+                        options={employeeOptions}
+                        onchange={handleChange}>
+                    </lightning-combobox>
+
+                </lightning-layout-item>
+
+                <!-- Asset -->
+                <lightning-layout-item
+                    size="12"
+                    medium-device-size="6"
+                   >
+
+                    <lightning-combobox
+                        name="assetId"
+                        label="Asset"
+                        value={assetRequest.assetId}
+                        options={assetOptions}
+                        onchange={handleChange}>
+                    </lightning-combobox>
+
+                </lightning-layout-item>
+
+                <!-- Priority -->
+                <lightning-layout-item
+                    size="12"
+                    padding="around-xx-small">
+
+                    <lightning-combobox
+                        name="priority"
+                        label="Priority"
+                        value={assetRequest.priority}
+                        options={priorityOptions}
+                        onchange={handleChange}>
+                    </lightning-combobox>
+
+                </lightning-layout-item>
+
+                <!-- Reason -->
+                <lightning-layout-item
+                    size="12"
+                    padding="around-xx-small">
+
+                    <lightning-textarea
+                        name="reason"
+                        label="Reason"
+                        value={assetRequest.reason}
+                        rows="5"
+                        onchange={handleChange}>
+                    </lightning-textarea>
+
+                </lightning-layout-item>
+
+                <!-- Buttons -->
+                <lightning-layout-item
+                    size="12"
+                    class="slds-text-align_right slds-m-top_medium">
+
+                    <lightning-button
+                        label="Cancel">
+                    </lightning-button>
+
+                    <lightning-button
+                        class="slds-m-left_small"
+                        variant="brand"
+                        label="Submit Request"
+                        onclick={handleSubmit}>
+                    </lightning-button>
+
+                </lightning-layout-item>
+
+            </lightning-layout>
+        </div>
+    </lightning-card>
 </template>

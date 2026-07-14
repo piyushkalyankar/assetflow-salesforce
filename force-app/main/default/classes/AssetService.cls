@@ -1,8 +1,5 @@
 public with sharing class AssetService {
-    public AssetService() {
-
-    }
-
+    
     public static String requestAsset(AssetRequestWrapper assetRequestWrapper) {
         // Validate Employee
         Employee__c employee = validateEmployee(assetRequestWrapper.employeeId);
@@ -72,6 +69,14 @@ public with sharing class AssetService {
 
     private static void saveRequest(Asset_Request__c request){
         insert request;
+    }
+
+    public static List<Employee__c> getActiveEmployees(){
+        return AssetSelector.getActiveEmployees();
+    }
+
+    public static List<Asset__c> getAvailableAssets(){
+        return AssetSelector.getAvailableAssets();
     }
    
 }

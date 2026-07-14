@@ -17,4 +17,12 @@ public with sharing class AssetSelector {
         List<Asset_Request__c> pendingRequests = [SELECT Id FROM Asset_Request__c WHERE Employee__c = :employeeId AND Asset__c = :assetId AND Status__c = :AssetConstants.REQUEST_STATUS_PENDING];
         return !pendingRequests.isEmpty();
     }
+
+    public static List<Employee__c> getActiveEmployees(){
+        return [Select Id , Name from Employee__c where Status__c =: AssetConstants.EMPLOYEE_STATUS_ACTIVE];
+    }
+
+    public static List<Asset__c> getAvailableAssets(){
+        return [Select Id , Name from Asset__c where Status__c =: AssetConstants.ASSET_STATUS_AVAILABLE];
+    }
 }
