@@ -25,4 +25,12 @@ public with sharing class AssetSelector {
     public static List<Asset__c> getAvailableAssets(){
         return [Select Id , Name from Asset__c where Status__c =: AssetConstants.ASSET_STATUS_AVAILABLE];
     }
+
+    public static List<Asset_Request__c> getPendingRequests(){
+        return [Select Id , Employee__r.Name , Asset__r.Name , Priority__c , Reason__c , Request_Date__c , Status__c from Asset_Request__c where Status__c =: AssetConstants.REQUEST_STATUS_PENDING];
+    }
+
+    public static Asset_Request__c getRequestById(Id requestId) {
+        return [SELECT Id,Status__c,Asset__c,Employee__c FROM Asset_Request__c WHERE Id = :requestId LIMIT 1];
+    }
 }

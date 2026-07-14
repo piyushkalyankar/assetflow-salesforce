@@ -68,7 +68,7 @@ public with sharing class AssetService {
     }
 
     private static void saveRequest(Asset_Request__c request){
-        insert request;
+        upsert request;
     }
 
     public static List<Employee__c> getActiveEmployees(){
@@ -78,5 +78,36 @@ public with sharing class AssetService {
     public static List<Asset__c> getAvailableAssets(){
         return AssetSelector.getAvailableAssets();
     }
-   
+
+    public static List<Asset_Request__c> getPendingRequests(){
+        return AssetSelector.getPendingRequests();
+    }
+
+    public static void updateRequestStatus(Id requestId, String status){
+        Asset_Request__c request = AssetSelector.getRequestById(requestId);
+        validateRequest(request);
+        updateRequest(request, status);
+        saveRequest(request);
+    }
+
+    private static void validateRequest(Asset_Request__c request){
+        if(request == null){
+            throw new AuraHandledException(
+                System.Label.Request_Not_Found
+            );
+        }
+
+        if(request.Status__c != AssetConstants.REQUEST_STATUS_PENDING){
+            throw new AuraHandledException(
+                System.Label.Request_Already_Processed
+            );
+        }
+    }
+
+    private static void updateRequest(Asset_Request__c request,String status){
+        request.Status__c = status;
+        request.Approved_By__c = UserInfo.getUserId();
+        request.Approval_Date__c = System.today();
+    }
+
 }

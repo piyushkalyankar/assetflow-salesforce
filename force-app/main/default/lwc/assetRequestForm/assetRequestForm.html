@@ -1,4 +1,7 @@
 <template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
     <lightning-card title="Asset Request" icon-name="standard:asset_object">
         <div class="slds-p-around_medium">
             <lightning-layout multiple-rows>
@@ -14,7 +17,8 @@
                         label="Employee"
                         value={assetRequest.employeeId}
                         options={employeeOptions}
-                        onchange={handleChange}>
+                        onchange={handleChange}
+                        required>
                     </lightning-combobox>
 
                 </lightning-layout-item>
@@ -30,7 +34,8 @@
                         label="Asset"
                         value={assetRequest.assetId}
                         options={assetOptions}
-                        onchange={handleChange}>
+                        onchange={handleChange}
+                        required>
                     </lightning-combobox>
 
                 </lightning-layout-item>
@@ -45,7 +50,8 @@
                         label="Priority"
                         value={assetRequest.priority}
                         options={priorityOptions}
-                        onchange={handleChange}>
+                        onchange={handleChange}
+                        required>
                     </lightning-combobox>
 
                 </lightning-layout-item>
@@ -60,7 +66,8 @@
                         label="Reason"
                         value={assetRequest.reason}
                         rows="5"
-                        onchange={handleChange}>
+                        onchange={handleChange}
+                        required>
                     </lightning-textarea>
 
                 </lightning-layout-item>
@@ -71,13 +78,15 @@
                     class="slds-text-align_right slds-m-top_medium">
 
                     <lightning-button
-                        label="Cancel">
+                        label="Cancel"
+                        onclick={resetForm}>
                     </lightning-button>
 
                     <lightning-button
                         class="slds-m-left_small"
                         variant="brand"
                         label="Submit Request"
+                        disabled = {isSubmitDisabled}
                         onclick={handleSubmit}>
                     </lightning-button>
 

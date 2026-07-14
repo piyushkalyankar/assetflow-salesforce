@@ -1,9 +1,10 @@
 import { LightningElement, wire } from 'lwc';
+import BaseComponent from 'c/baseComponent';
 import getActiveEmployees from '@salesforce/apex/AssetController.getActiveEmployees';
 import getAvailableAssets from '@salesforce/apex/AssetController.getAvailableAssets';
+import requestAsset from '@salesforce/apex/AssetController.requestAsset';
 
-
-export default class AssetRequestForm extends LightningElement {
+export default class AssetRequestForm extends BaseComponent {
     assetRequest = {
         employeeId: null,
         assetId: null,
@@ -17,6 +18,15 @@ export default class AssetRequestForm extends LightningElement {
         { label: 'Medium', value: 'Medium' },
         { label: 'Low', value: 'Low' }
     ];
+    get isSubmitDisabled() {
+        return !(
+            this.assetRequest.employeeId &&
+            this.assetRequest.assetId &&
+            this.assetRequest.priority &&
+            this.assetRequest.reason?.trim()
+        );
+    }
+    isLoading = false;
 
     @wire(getActiveEmployees)
     wiredEmployees({ data, error }) {
@@ -46,12 +56,35 @@ export default class AssetRequestForm extends LightningElement {
         }
     }
 
-    handleChange(event){
-        this.assetRequest[event.target.name] = event.detail.value;
+    handleChange(event) {
+        this.assetRequest = {
+            ...this.assetRequest,
+            [event.target.name]: event.detail.value
+        };
     }
 
-    handleSubmit(){
+    async handleSubmit() {
+        this.isLoading = true;
+        try {
+            const requestId = await requestAsset({
+                assetRequest: this.assetRequest
+            });
+            this.showSuccessToast('Asset Request Created Successfully');
+            this.resetForm();
+        } catch (error) {
+            this.showErrorToast(error?.body?.message || 'Request failed');
+        } finally {
+            this.isLoading = false;
+        }
+    }
 
+    resetForm(){
+         this.assetRequest = {
+            employeeId: null,
+            assetId: null,
+            priority: '',
+            reason: ''
+        };
     }
 
 }

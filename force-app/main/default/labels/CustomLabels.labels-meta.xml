@@ -99,6 +99,20 @@
         <value>The asset request has been rejected.</value>
     </labels>
     <labels>
+        <fullName>Request_Already_Processed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Request Already Processed</shortDescription>
+        <value>This asset request has already been processed and cannot be changed.</value>
+    </labels>
+    <labels>
+        <fullName>Request_Not_Found</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Request Not Found</shortDescription>
+        <value>The requested asset request record was not found.</value>
+    </labels>
+    <labels>
         <fullName>Request_Submitted</fullName>
         <language>en_US</language>
         <protected>true</protected>

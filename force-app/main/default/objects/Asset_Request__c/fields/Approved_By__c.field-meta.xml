@@ -3,9 +3,8 @@
     <fullName>Approved_By__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <label>Approved By</label>
-    <referenceTo>Employee__c</referenceTo>
-    <relationshipLabel>Asset Approvals</relationshipLabel>
-    <relationshipName>Asset_Approvals</relationshipName>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Asset_Requests</relationshipName>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
