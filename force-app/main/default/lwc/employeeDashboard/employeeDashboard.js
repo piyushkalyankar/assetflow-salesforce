@@ -1,5 +1,6 @@
 import { LightningElement, wire } from 'lwc';
 import getEmployeeDashboard from '@salesforce/apex/EmployeeDashboardController.getEmployeeDashboard';
+import { createElement } from 'lwc';
 
 export default class EmployeeDashboard extends LightningElement {
 
@@ -51,6 +52,7 @@ export default class EmployeeDashboard extends LightningElement {
     searchKey = '';
     sortedBy;
     sortedDirection = 'asc';
+    showModal = false;
 
     @wire(getEmployeeDashboard)
     wiredDashboard(result) {
@@ -113,5 +115,24 @@ export default class EmployeeDashboard extends LightningElement {
         });
 
         this.requests = cloneData;
+    }
+
+    handleRequestAsset() {
+        this.showModal = true;
+    }
+
+    closeModal() {
+        this.showModal = false;
+    }
+
+    handleRequestSuccess() {
+        this.closeModal();
+        this.refreshDashboard();
+    }
+
+    refreshDashboard() {
+        if (this.dassboardResult?.refresh) {
+            this.dassboardResult.refresh();
+        }
     }
 }

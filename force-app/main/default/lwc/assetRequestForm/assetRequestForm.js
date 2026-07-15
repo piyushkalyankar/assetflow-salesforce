@@ -66,11 +66,12 @@ export default class AssetRequestForm extends BaseComponent {
     async handleSubmit() {
         this.isLoading = true;
         try {
-            const requestId = await requestAsset({
+            await requestAsset({
                 assetRequest: this.assetRequest
             });
             this.showSuccessToast('Asset Request Created Successfully');
             this.resetForm();
+            this.dispatchEvent(new CustomEvent('requestsuccess'));
         } catch (error) {
             this.showErrorToast(error?.body?.message || 'Request failed');
         } finally {

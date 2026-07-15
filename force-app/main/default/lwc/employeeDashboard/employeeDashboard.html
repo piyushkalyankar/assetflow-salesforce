@@ -76,26 +76,59 @@
 
     </lightning-card>
 
-    <lightning-card title="My Requests">
-    
-    <div class="slds-p-around_medium">
-        <lightning-input 
-            type="search"
-            label="Search Requests"
-            value={searchKey}
-            onchange={handleSearchKeyChange}>
-        </lightning-input>
-    </div>
-    
-    <lightning-datatable
-        key-field="Id"
-        data={requests}
-        columns={columns}
-        sorted-by={sortedBy}
-        sorted-direction={sortedDirection}
-        onsort={handleSort}>
-    </lightning-datatable>
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Create Asset Request</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <c-asset-request-form onrequestsuccess={handleRequestSuccess}></c-asset-request-form>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
 
-</lightning-card>
+    <lightning-card>
+
+        <div class="slds-grid slds-grid_align-spread slds-p-around_medium">
+
+            <h2 class="slds-text-heading_medium">
+                My Requests
+            </h2>
+
+            <lightning-button
+                label="Request Asset"
+                variant="brand"
+                icon-name="utility:add"
+                onclick={handleRequestAsset}>
+            </lightning-button>
+
+        </div>
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <lightning-input
+                type="search"
+                label="Search Requests"
+                value={searchKey}
+                onchange={handleSearchKeyChange}>
+            </lightning-input>
+        </div>
+
+        <lightning-datatable
+            key-field="Id"
+            data={requests}
+            columns={columns}
+            sorted-by={sortedBy}
+            sorted-direction={sortedDirection}
+            onsort={handleSort}>
+        </lightning-datatable>
+
+    </lightning-card> 
 
 </template>

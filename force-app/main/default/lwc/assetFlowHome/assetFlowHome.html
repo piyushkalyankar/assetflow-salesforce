@@ -1,0 +1,112 @@
+<template>
+    <lightning-card title="AssetFlow" icon-name="standard:asset_object">
+
+        <div class="slds-p-around_large">
+
+            <!-- Header -->
+
+            <div class="slds-text-align_center slds-m-bottom_large">
+
+                <h1 class="slds-text-heading_large">
+                    Welcome to AssetFlow
+                </h1>
+
+                <p class="slds-text-body_regular">
+                    Enterprise Asset Management System
+                </p>
+
+                <p class="slds-m-top_small">
+                    Select the portal you want to access.
+                </p>
+
+            </div>
+
+            <!-- Employee Portal -->
+
+            <lightning-card class="slds-m-bottom_medium">
+
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-p-around_medium">
+
+                    <div>
+
+                        <h2 class="slds-text-heading_small">
+                            👤 Employee Portal
+                        </h2>
+
+                        <p>
+                            Create requests and track request status.
+                        </p>
+
+                    </div>
+
+                    <lightning-button
+                        label="Open Portal"
+                        variant="brand"
+                        onclick={openEmployeeDashboard}>
+                    </lightning-button>
+
+                </div>
+
+            </lightning-card>
+
+            <!-- Manager Portal -->
+
+            <lightning-card class="slds-m-bottom_medium">
+
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-p-around_medium">
+
+                    <div>
+
+                        <h2 class="slds-text-heading_small">
+                            👨‍💼 Manager Portal
+                        </h2>
+
+                        <p>
+                            Approve and reject employee asset requests.
+                        </p>
+
+                    </div>
+
+                    <lightning-button
+                        label="Open Portal"
+                        variant="brand"
+                        onclick={openManagerDashboard}>
+                    </lightning-button>
+
+                </div>
+
+            </lightning-card>
+
+            <!-- Admin Portal -->
+
+            <lightning-card>
+
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-p-around_medium">
+
+                    <div>
+
+                        <h2 class="slds-text-heading_small">
+                            🛠 Admin Portal
+                        </h2>
+
+                        <p>
+                            Manage assets, reports and configurations.
+                        </p>
+
+                    </div>
+
+                    <lightning-button
+                        label="Open Portal"
+                        variant="brand"
+                        onclick={openAdminDashboard}>
+                    </lightning-button>
+
+                </div>
+
+            </lightning-card>
+
+        </div>
+
+    </lightning-card>
+
+</template>
