@@ -1,0 +1,124 @@
+<template>
+
+    <lightning-card title="Admin Dashboard" icon-name="standard:asset_object">
+
+        <div class="slds-p-around_medium">
+
+            <lightning-layout multiple-rows>
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="around-small">
+
+                    <lightning-card title="Total Assets">
+
+                        <div class="slds-p-around_medium slds-text-align_center">
+
+                            <h2 class="slds-text-heading_large">
+
+                                {totalAssets}
+
+                            </h2>
+
+                        </div>
+
+                    </lightning-card>
+
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="around-small">
+
+                    <lightning-card title="Available">
+
+                        <div class="slds-p-around_medium slds-text-align_center">
+
+                            <h2 class="slds-text-heading_large">
+
+                                {availableAssets}
+
+                            </h2>
+
+                        </div>
+
+                    </lightning-card>
+
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="around-small">
+
+                    <lightning-card title="Allocated">
+
+                        <div class="slds-p-around_medium slds-text-align_center">
+
+                            <h2 class="slds-text-heading_large">
+
+                                {allocatedAssets}
+
+                            </h2>
+
+                        </div>
+
+                    </lightning-card>
+
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="around-small">
+
+                    <lightning-card title="Maintenance">
+
+                        <div class="slds-p-around_medium slds-text-align_center">
+
+                            <h2 class="slds-text-heading_large">
+
+                                {maintenanceAssets}
+
+                            </h2>
+
+                        </div>
+
+                    </lightning-card>
+
+                </lightning-layout-item>
+
+            </lightning-layout>
+
+            <div class="slds-grid slds-grid_align-spread slds-m-top_large slds-m-bottom_medium">
+
+                <lightning-input
+                    type="search"
+                    label="Search Assets"
+                    value={searchKey}
+                    onchange={handleSearch}>
+                </lightning-input>
+
+                <div class="slds-m-top_large">
+
+                    <lightning-button
+                        label="New Asset"
+                        variant="brand"
+                        icon-name="utility:add"
+                        onclick={handleNewAsset}>
+                    </lightning-button>
+
+                </div>
+
+            </div>
+
+            <lightning-datatable
+
+                key-field="Id"
+
+                data={assets}
+
+                columns={columns}
+                sorted-by={sortedBy}
+                sorted-direction={sortedDirection}
+                onsort={handleSort}>
+
+            </lightning-datatable>
+
+        </div>
+
+    </lightning-card>
+
+   <c-asset-modal lwc:if={showAssetModal} onclosemodal={handleCloseModal}></c-asset-modal>
+
+</template>
