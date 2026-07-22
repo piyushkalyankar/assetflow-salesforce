@@ -111,7 +111,8 @@
                 columns={columns}
                 sorted-by={sortedBy}
                 sorted-direction={sortedDirection}
-                onsort={handleSort}>
+                onsort={handleSort}
+                onrowaction={handleRowAction}>
 
             </lightning-datatable>
 
@@ -120,5 +121,31 @@
     </lightning-card>
 
    <c-asset-modal lwc:if={showAssetModal} onclosemodal={handleCloseModal}></c-asset-modal>
+
+   <template if:true={showViewModal}>
+       <c-asset-view-modal record-id={selectedRecordId} onmodalclose={handleCloseModal}></c-asset-view-modal>
+   </template>
+
+   <template if:true={showEditModal}>
+       <c-asset-edit-modal record-id={selectedRecordId} onmodalclose={handleCloseModal} onsaved={handleAssetSaved}></c-asset-edit-modal>
+   </template>
+
+   <template if:true={showDeleteConfirm}>
+       <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+           <div class="slds-modal__container">
+               <header class="slds-modal__header">
+                   <h2 class="slds-text-heading_medium">Confirm Delete</h2>
+               </header>
+               <div class="slds-modal__content slds-p-around_medium">
+                   <p>Are you sure you want to delete this asset?</p>
+               </div>
+               <footer class="slds-modal__footer">
+                   <lightning-button label="Cancel" onclick={handleCloseModal}></lightning-button>
+                   <lightning-button class="slds-m-left_small" variant="destructive" label="Delete" onclick={confirmDelete}></lightning-button>
+               </footer>
+           </div>
+       </section>
+       <div class="slds-backdrop slds-backdrop_open"></div>
+   </template>
 
 </template>

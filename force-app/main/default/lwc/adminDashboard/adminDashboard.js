@@ -1,4 +1,6 @@
 import { LightningElement, wire } from 'lwc';
+import { deleteRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getDashboardData from '@salesforce/apex/AssetDashboardController.getDashboardData';
 
 export default class AdminDashboard extends LightningElement {
@@ -14,14 +16,33 @@ export default class AdminDashboard extends LightningElement {
         { label: 'Asset Type', fieldName: 'assetType', type: 'text', sortable: true },
         { label: 'Status', fieldName: 'status', type: 'text', sortable: true },
         { label: 'Cost', fieldName: 'cost', type: 'currency', sortable: true },
-        { label: 'Purchase Date', fieldName: 'purchaseDate', type: 'date', sortable: true }
+        { label: 'Purchase Date', fieldName: 'purchaseDate', type: 'date', sortable: true },
+        {
+            type: 'action',
+            typeAttributes: {
+                rowActions: [
+                    { label: 'View', name: 'view' },
+                    { label: 'Edit', name: 'edit' },
+                    { label: 'Delete', name: 'delete' }
+                ]
+            }
+        }
     ];
     showAssetModal = false;
+    showViewModal = false;
+    showEditModal = false;
+    showDeleteConfirm = false;
+    selectedRecordId;
     sortedBy;
     sortedDirection = 'asc';
+    isDeleting = false;
+
+    wiredDashboardResult;
 
     @wire(getDashboardData)
-    wiredDashboard({ data, error }) {
+    wiredDashboard(result) {
+        this.wiredDashboardResult = result;
+        const { data, error } = result;
         if (data) {
             this.totalAssets = data.totalAssets ?? 0;
             this.availableAssets = data.availableAssets ?? 0;
@@ -47,6 +68,33 @@ export default class AdminDashboard extends LightningElement {
 
     handleCloseModal() {
         this.showAssetModal = false;
+        this.showViewModal = false;
+        this.showEditModal = false;
+        this.showDeleteConfirm = false;
+        this.selectedRecordId = undefined;
+    }
+
+    handleRowAction(event) {
+        const actionName = event.detail.action.name;
+        const row = event.detail.row;
+        this.selectedRecordId = row.Id;
+
+        switch (actionName) {
+            case 'view':
+                this.showViewModal = true;
+                this.showEditModal = false;
+                break;
+            case 'edit':
+                this.showEditModal = true;
+                this.showViewModal = false;
+                break;
+            case 'delete':
+                this.selectedRecordId = row.Id;
+                this.showDeleteConfirm = true;
+                break;
+            default:
+                break;
+        }
     }
 
     handleSearch(event) {
@@ -82,5 +130,60 @@ export default class AdminDashboard extends LightningElement {
         });
 
         this.assets = sortedData;
+    }
+
+    async handleDelete(recordId) {
+        this.isDeleting = true;
+        try {
+            await deleteRecord(recordId);
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: 'Asset deleted successfully',
+                variant: 'success'
+            }));
+            this.refreshDashboard();
+        } catch (error) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error.body?.message || 'Unable to delete asset',
+                variant: 'error'
+            }));
+        } finally {
+            this.isDeleting = false;
+            this.showDeleteConfirm = false;
+            this.selectedRecordId = undefined;
+        }
+    }
+
+    confirmDelete() {
+        if (this.selectedRecordId) {
+            this.handleDelete(this.selectedRecordId);
+        }
+    }
+
+    refreshDashboard() {
+        this.allAssets = [];
+        this.assets = [];
+        this.totalAssets = 0;
+        this.availableAssets = 0;
+        this.allocatedAssets = 0;
+        this.maintenanceAssets = 0;
+        this.searchKey = '';
+        this.selectedRecordId = undefined;
+        this.showViewModal = false;
+        this.showEditModal = false;
+        this.showAssetModal = false;
+        this.showDeleteConfirm = false;
+        this.sortedBy = undefined;
+        this.sortedDirection = 'asc';
+
+        if (this.wiredDashboardResult?.refresh) {
+            this.wiredDashboardResult.refresh();
+        }
+    }
+
+    handleAssetSaved() {
+        this.handleCloseModal();
+        this.refreshDashboard();
     }
 }
